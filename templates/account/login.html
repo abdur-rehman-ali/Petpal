@@ -1,0 +1,76 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% load widget_tweaks %}
+{% block head_title %}
+  {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+<section class="bg-gray-50">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                  {% trans "Sign in to your account" %}
+              </h1>
+              
+
+              {% url 'account_login' as login_url %}
+
+              <form class="space-y-4 md:space-y-6" method="post" action="{{ login_url }}">
+                  {% csrf_token %}
+                  {% for field in form %}
+                    <div>
+                      {% if field.name == 'remember'%}
+                        <div class="flex items-center justify-between">
+                          <div class="flex items-start">
+                              <div class="flex items-center h-5">
+                                {{ field|add_class:"w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"  }}
+                              </div>
+                              <div class="ml-3 text-sm">
+                                <label for="remember" class="text-gray-500">Remember me</label>
+                              </div>
+                          </div>
+                          <a href="{% url 'account_reset_password' %}" class="text-sm font-medium text-primary-600 hover:underline">
+                            {% trans "Forgot password?" %}
+                          </a>
+                        </div>
+                      {% else %}
+                        <label for="{{ field.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">
+                          {{ field.label }}
+                        </label>
+                        {{ field|add_class:"w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-primary-500" }}
+                      {% endif %}
+                      {% if field.errors %}
+                        <div class="text-sm text-red-600">
+                          {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                  {{ redirect_field }}
+                  <button type="submit" class="w-full text-white bg-gray-900 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    {% trans "Sign In" %}
+                  </button>
+              </form>
+              {% if not SOCIALACCOUNT_ONLY %}
+                <p class="text-sm font-light text-gray-500">
+                  {% trans "Don’t have an account yet?" %}
+                  <a href="{{ signup_url }}" class="font-extrabold text-gray-900 hover:underline">
+                    {% trans "Sign up" %}
+                  </a>
+                </p>
+              {% endif %}
+              {% if SOCIALACCOUNT_ENABLED %}
+                <div class="mt-6">
+                  {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                </div>
+              {% endif %}
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock content %}
