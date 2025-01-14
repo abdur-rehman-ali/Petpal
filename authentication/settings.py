@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "theme",
     "django_browser_reload",
     "pages",
+    "dashboard",
     # Django allauth
     "allauth",
     "allauth.account",
@@ -144,8 +145,7 @@ INTERNAL_IPS = ["127.0.0.1"]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_AUTHENTICATED_REDIRECT_URL = '/'
-
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_AUTHENTICATED_REDIRECT_URL = "/"
