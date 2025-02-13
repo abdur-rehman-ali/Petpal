@@ -1,0 +1,27 @@
+{% load allauth socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+  {% element provider_list %}
+    {% for provider in socialaccount_providers %}
+      {% if provider.id == "openid" %}
+        {% for brand in provider.get_brands %}
+          {% provider_login_url provider openid=brand.openid_url process=process as href %}
+          {% element provider name=brand.name provider_id=provider.id href=href %}
+          {% endelement %}
+        {% endfor %}
+      {% endif %}
+
+      {% if provider.id == "google" %}
+        {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
+        <a href="{{ href }}" class="flex items-center justify-center w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-gray-700 font-medium hover:bg-gray-100 transition">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-6 h-6 mr-2">
+          Continue with Google
+        </a>
+      {% else %}
+        {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
+        {% element provider name=provider.name provider_id=provider.id href=href %}
+        {% endelement %}
+      {% endif %}
+    {% endfor %}
+  {% endelement %}
+{% endif %}
