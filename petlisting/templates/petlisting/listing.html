@@ -1,0 +1,13 @@
+{% extends "account/base_entrance.html" %}
+{% block content %} 
+    <h1 class="text-3xl font-bold my-6">Pet Listings</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% if pets %}
+            {% for pet in pets %}
+                {% include 'petlisting/partials/_pet_detail_card.html' with pet=pet %}
+            {% endfor %}
+        {% else %}
+            <h1>No pet found</h1>
+        {% endif %}
+    </div>
+{% endblock content %}
