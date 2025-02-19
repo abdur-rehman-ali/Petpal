@@ -51,9 +51,11 @@ INSTALLED_APPS = [
     # Django allauth
     "allauth",
     "allauth.account",
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     "widget_tweaks",
+    # Local Apps,
+    "petlisting",
 ]
 
 MIDDLEWARE = [
@@ -165,18 +167,18 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
 
 
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': config('GOOGLE_CLIENT_ID'),
-            'secret': config('GOOGLE_CLIENT_SECRET'),
-            'key': ''
+    "google": {
+        "APP": {
+            "client_id": config("GOOGLE_CLIENT_ID"),
+            "secret": config("GOOGLE_CLIENT_SECRET"),
+            "key": "",
         },
-        'SCOPE': [
-            'profile',
-            'email',
+        "SCOPE": [
+            "profile",
+            "email",
         ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
     }
 }
