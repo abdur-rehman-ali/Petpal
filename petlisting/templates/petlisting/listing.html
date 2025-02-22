@@ -10,4 +10,5 @@
             <h1>No pet found</h1>
         {% endif %}
     </div>
+    {% include 'petlisting/partials/_paginator_controls.html' with pets=pets %}
 {% endblock content %}
