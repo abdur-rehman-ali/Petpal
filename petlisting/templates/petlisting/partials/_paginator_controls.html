@@ -1,0 +1,17 @@
+<div class="flex justify-center my-8">
+  <nav class="inline-flex rounded-md shadow-sm">
+      {% if pets.has_previous %}
+          <a href="?page=1" class="px-4 py-2 border rounded-l-md bg-white text-gray-700 hover:bg-gray-50">First Page</a>
+          <a href="?page={{ pets.previous_page_number }}" class="px-4 py-2 border bg-white text-gray-700 hover:bg-gray-50">Previous Page</a>
+      {% endif %}
+
+      <span class="px-4 py-2 border bg-white text-gray-700">
+          Page {{ pets.number }} of {{ pets.paginator.num_pages }}
+      </span>
+
+      {% if pets.has_next %}
+          <a href="?page={{ pets.next_page_number }}" class="px-4 py-2 border bg-white text-gray-700 hover:bg-gray-50">Next Page</a>
+          <a href="?page={{ pets.paginator.num_pages }}" class="px-4 py-2 border rounded-r-md bg-white text-gray-700 hover:bg-gray-50">Last Page</a>
+      {% endif %}
+  </nav>
+</div>
