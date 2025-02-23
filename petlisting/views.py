@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Pet
 from .filters import PetFilter
 from .forms import PetForm
+from .decorators import seller_required
 
 
 # Create your views here.
@@ -13,13 +15,15 @@ def list_view(request):
     # Apply filters
     pet_filters = PetFilter(request.GET, queryset=pets_list)
     pets_list = pet_filters.qs
+    # Get the total number of pets
+    total_pets = pets_list.count()
     # Apply pagination
     paginator = Paginator(pets_list, 12)
     page_number = request.GET.get("page")
     page_object = paginator.get_page(page_number)
     # Render template
     template_name = "petlisting/listing.html"
-    context = {"pets": page_object, "filters": pet_filters}
+    context = {"pets": page_object, "filters": pet_filters, "total_pets": total_pets}
     return render(request, template_name, context=context)
 
 
@@ -30,6 +34,7 @@ def detail_view(request, pet_id):
     return render(request, template_name, context=context)
 
 
+@login_required
 def create_view(request):
     if request.method == "POST":
         form = PetForm(request.POST)
@@ -47,6 +52,7 @@ def create_view(request):
     return render(request, template_name, context=context)
 
 
+@seller_required
 def edit_view(request, pet_id):
     pet = get_object_or_404(Pet, id=pet_id)
     if request.method == "POST":
@@ -63,6 +69,7 @@ def edit_view(request, pet_id):
     return render(request, template_name, context)
 
 
+@seller_required
 def delete_view(request, pet_id):
     pet = get_object_or_404(Pet, id=pet_id)
     if request.method == "POST":
