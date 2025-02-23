@@ -13,13 +13,15 @@ def list_view(request):
     # Apply filters
     pet_filters = PetFilter(request.GET, queryset=pets_list)
     pets_list = pet_filters.qs
+    # Get the total number of pets
+    total_pets = pets_list.count()
     # Apply pagination
     paginator = Paginator(pets_list, 12)
     page_number = request.GET.get("page")
     page_object = paginator.get_page(page_number)
     # Render template
     template_name = "petlisting/listing.html"
-    context = {"pets": page_object, "filters": pet_filters}
+    context = {"pets": page_object, "filters": pet_filters, "total_pets": total_pets}
     return render(request, template_name, context=context)
 
 
