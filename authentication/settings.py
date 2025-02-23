@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "widget_tweaks",
+    # Django filters
+    "django_filters",
     # Local Apps,
     "petlisting",
 ]
