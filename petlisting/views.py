@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator
+from django.contrib import messages
 from .models import Pet
 from .filters import PetFilter
 from .forms import PetForm
@@ -36,6 +37,7 @@ def create_view(request):
             pet = form.save(commit=False)
             pet.seller = request.user
             pet.save()
+            messages.success(request, f"{pet.name} has been created successfully!")
             return redirect("petlisting__detail_view", pet_id=pet.id)
     else:
         form = PetForm()
@@ -51,10 +53,22 @@ def edit_view(request, pet_id):
         form = PetForm(request.POST, instance=pet)
         if form.is_valid():
             form.save()
+            messages.success(request, f"{pet.name} has been updated successfully!")
             return redirect("petlisting__detail_view", pet_id=pet.id)
     else:
         form = PetForm(instance=pet)
 
     template_name = "petlisting/create_edit_view_template.html"
     context = {"form": form, "pet": pet, "is_edit": True}
+    return render(request, template_name, context)
+
+
+def delete_view(request, pet_id):
+    pet = get_object_or_404(Pet, id=pet_id)
+    if request.method == "POST":
+        pet.delete()
+        messages.success(request, f"{pet.name} has been deleted successfully.")
+        return redirect("petlisting__list_view")
+    template_name = "petlisting/pet_confirm_delete.html"
+    context = {"pet": pet}
     return render(request, template_name, context)
