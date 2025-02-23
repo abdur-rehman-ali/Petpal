@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Pet
 from .filters import PetFilter
 from .forms import PetForm
+from .decorators import seller_required
 
 
 # Create your views here.
@@ -32,6 +34,7 @@ def detail_view(request, pet_id):
     return render(request, template_name, context=context)
 
 
+@login_required
 def create_view(request):
     if request.method == "POST":
         form = PetForm(request.POST)
@@ -49,6 +52,7 @@ def create_view(request):
     return render(request, template_name, context=context)
 
 
+@seller_required
 def edit_view(request, pet_id):
     pet = get_object_or_404(Pet, id=pet_id)
     if request.method == "POST":
@@ -65,6 +69,7 @@ def edit_view(request, pet_id):
     return render(request, template_name, context)
 
 
+@seller_required
 def delete_view(request, pet_id):
     pet = get_object_or_404(Pet, id=pet_id)
     if request.method == "POST":
