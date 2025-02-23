@@ -1,7 +1,8 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator
 from .models import Pet
 from .filters import PetFilter
+from .forms import PetForm
 
 
 # Create your views here.
@@ -25,4 +26,19 @@ def detail_view(request, pet_id):
     pet = get_object_or_404(Pet, id=pet_id)
     template_name = "petlisting/detail_view.html"
     context = {"pet": pet}
+    return render(request, template_name, context=context)
+
+
+def create_view(request):
+    if request.method == "POST":
+        form = PetForm(request.POST)
+        if form.is_valid():
+            pet = form.save(commit=False)
+            pet.seller = request.user
+            pet.save()
+            return redirect("petlisting__detail_view", pet_id=pet.id)
+    else:
+        form = PetForm()
+    template_name = "petlisting/create_view.html"
+    context = {"form": form}
     return render(request, template_name, context=context)
