@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
 from .models import Pet
 from .filters import PetFilter
@@ -18,4 +18,11 @@ def list_view(request):
     # Render template
     template_name = "petlisting/listing.html"
     context = {"pets": page_object, "filters": pet_filters}
+    return render(request, template_name, context=context)
+
+
+def detail_view(request, pet_id):
+    pet = get_object_or_404(Pet, id=pet_id)
+    template_name = "petlisting/detail_view.html"
+    context = {"pet": pet}
     return render(request, template_name, context=context)

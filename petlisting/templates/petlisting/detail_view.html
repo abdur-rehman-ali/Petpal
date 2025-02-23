@@ -1,0 +1,83 @@
+{% extends "account/base_entrance.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto my-8 p-6 bg-white rounded-lg shadow-xl border border-gray-100">
+    <!-- Pet Image -->
+    <div class="relative">
+        <img class="w-full h-96 object-cover rounded-lg" src="https://placehold.co/800x400" alt="{{ pet.name }}">
+        <!-- Status Badge -->
+        <span class="absolute top-4 right-4 bg-green-500 text-white text-sm font-semibold px-4 py-2 rounded-full shadow-md">
+            {{ pet.get_status_display }}
+        </span>
+    </div>
+
+    <!-- Pet Details -->
+    <div class="mt-8">
+        <!-- Pet Name -->
+        <h1 class="text-4xl font-bold text-gray-800">{{ pet.name }}</h1>
+
+        <!-- Basic Info Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+            <!-- Type -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Type</p>
+                <p class="text-lg font-semibold text-gray-800">{{ pet.get_pet_type_display }}</p>
+            </div>
+
+            <!-- Breed -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Breed</p>
+                <p class="text-lg font-semibold text-gray-800">{{ pet.breed }}</p>
+            </div>
+
+            <!-- Age -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Age</p>
+                <p class="text-lg font-semibold text-gray-800">{{ pet.age }} years</p>
+            </div>
+
+            <!-- Gender -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Gender</p>
+                <p class="text-lg font-semibold text-gray-800">{{ pet.get_gender_display }}</p>
+            </div>
+
+            <!-- Price -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Price</p>
+                <p class="text-lg font-semibold text-gray-800">Rs. {{ pet.price }}</p>
+            </div>
+
+            <!-- Location -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Location</p>
+                <p class="text-lg font-semibold text-gray-800">{{ pet.location }}</p>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold text-gray-800">About {{ pet.name }}</h2>
+            <p class="mt-4 text-gray-600 leading-relaxed">{{ pet.description }}</p>
+        </div>
+
+        <!-- Seller Info -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold text-gray-800">Seller Information</h2>
+            <div class="mt-4 bg-gray-50 p-6 rounded-lg">
+                <p class="text-lg font-semibold text-gray-800">{{ pet.seller.username }}</p>
+                <p class="text-gray-600">{{ pet.seller.email }}</p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-8 flex space-x-4">
+            <a href="#" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold rounded-md hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-edit mr-2"></i> Edit
+            </a>
+            <a href="#" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm font-semibold rounded-md hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-trash mr-2"></i> Delete
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
