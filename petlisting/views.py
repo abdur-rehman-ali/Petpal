@@ -39,6 +39,22 @@ def create_view(request):
             return redirect("petlisting__detail_view", pet_id=pet.id)
     else:
         form = PetForm()
-    template_name = "petlisting/create_view.html"
-    context = {"form": form}
+
+    template_name = "petlisting/create_edit_view_template.html"
+    context = {"form": form, "is_edit": False}
     return render(request, template_name, context=context)
+
+
+def edit_view(request, pet_id):
+    pet = get_object_or_404(Pet, id=pet_id)
+    if request.method == "POST":
+        form = PetForm(request.POST, instance=pet)
+        if form.is_valid():
+            form.save()
+            return redirect("petlisting__detail_view", pet_id=pet.id)
+    else:
+        form = PetForm(instance=pet)
+
+    template_name = "petlisting/create_edit_view_template.html"
+    context = {"form": form, "pet": pet, "is_edit": True}
+    return render(request, template_name, context)

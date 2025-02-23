@@ -2,7 +2,9 @@
 {% load widget_tweaks %}
 {% block content %}
 <div class="max-w-2xl mx-auto my-8 p-6 bg-white rounded-lg shadow-md border border-gray-100">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Add a New Pet</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">
+        {% if is_edit %}Edit {{ pet.name }}{% else %}Add a New Pet{% endif %}
+    </h1>
     <form method="post" class="space-y-6">
         {% csrf_token %}
         
@@ -63,7 +65,8 @@
         <!-- Submit Button -->
         <div class="flex justify-end">
             <button type="submit" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white text-sm font-semibold rounded-md hover:from-indigo-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
-                <i class="fas fa-save mr-2"></i> Save Listing
+                <i class="fas fa-save mr-2"></i> 
+                {% if is_edit %}Edit Listing{% else %}Save Listing{% endif %}
             </button>
         </div>
     </form>
