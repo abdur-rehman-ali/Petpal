@@ -1,0 +1,18 @@
+{% extends "account/base_entrance.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto my-8 p-6 bg-white rounded-lg shadow-md border border-gray-100">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Delete {{ pet.name }}?</h1>
+    <p class="text-gray-600 mb-6">Are you sure you want to delete <strong>{{ pet.name }}</strong>? This action cannot be undone.</p>
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        <div class="flex justify-end space-x-4">
+            <a href="{% url 'petlisting__detail_view' pet.id %}" class="inline-flex items-center px-6 py-3 bg-gray-200 text-gray-700 text-sm font-semibold rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-times mr-2"></i> Cancel
+            </a>
+            <button type="submit" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm font-semibold rounded-md hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-trash mr-2"></i> Delete
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
