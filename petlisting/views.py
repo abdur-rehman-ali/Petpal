@@ -12,7 +12,7 @@ def list_view(request):
     pet_filters = PetFilter(request.GET, queryset=pets_list)
     pets_list = pet_filters.qs
     # Apply pagination
-    paginator = Paginator(pets_list, 10)
+    paginator = Paginator(pets_list, 12)
     page_number = request.GET.get("page")
     page_object = paginator.get_page(page_number)
     # Render template
