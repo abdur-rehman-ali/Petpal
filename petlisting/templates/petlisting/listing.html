@@ -1,6 +1,7 @@
 {% extends "account/base_entrance.html" %}
 {% block content %} 
     <h1 class="text-3xl font-bold my-6">Pet Listings</h1>
+    {% include 'petlisting/partials/_filters.html' with filters=filters %}
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {% if pets %}
             {% for pet in pets %}
