@@ -6,30 +6,51 @@
     </div>
     <nav class="mt-4">
         <ul>
-            <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
-                <a href="#" class="flex items-center">
-                    <i class="fas fa-home mr-2"></i>
-                    <span>Home</span>
-                </a>
-            </li>
-            <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
-                <a href="#" class="flex items-center">
-                    <i class="fas fa-chart-line mr-2"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
-                <a href="#" class="flex items-center">
-                    <i class="fas fa-cog mr-2"></i>
-                    <span>Settings</span>
-                </a>
-            </li>
-            <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
-                <a href="#" class="flex items-center">
-                    <i class="fas fa-sign-out-alt mr-2"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
+            {% if user.is_authenticated %}
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'dashboard_profile' %}" class="flex items-center">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'petlisting__list_view'%}" class="flex items-center">
+                        <i class="fas fa-paw mr-2"></i>
+                        <span>Pet Listing</span>
+                    </a>
+                </li>
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'petlisting__create_view'%}" class="flex items-center">
+                        <i class="fas fa-plus-circle mr-2"></i>
+                        <span>Create Pet Listing</span>
+                    </a>
+                </li>
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'account_change_password' %}" class="flex items-center">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        <span>Change Password</span>
+                    </a>
+                </li>
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'account_logout' %}" class="flex items-center">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="#" class="flex items-center">
+                        <i class="fas fa-home mr-2"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'account_login' %}" class="flex items-center">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 </div>
