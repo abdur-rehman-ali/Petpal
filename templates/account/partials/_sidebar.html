@@ -1,5 +1,6 @@
 {% load static %}
 
+<!-- Sidebar -->
 <div id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg">
     <div class="flex items-center justify-between p-4 bg-gray-800">
         <h2 class="text-lg font-semibold text-white">Sidebar</h2>
@@ -7,30 +8,39 @@
     <nav class="mt-4">
         <ul>
             {% if user.is_authenticated %}
+                <!-- Dashboard -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="{% url 'dashboard_profile' %}" class="flex items-center">
                         <i class="fas fa-chart-line mr-2"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
+
+                <!-- Pet Listing -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
-                    <a href="{% url 'petlisting__list_view'%}" class="flex items-center">
+                    <a href="{% url 'petlisting__list_view' %}" class="flex items-center">
                         <i class="fas fa-paw mr-2"></i>
                         <span>Pet Listing</span>
                     </a>
                 </li>
+
+                <!-- Create Pet Listing -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
-                    <a href="{% url 'petlisting__create_view'%}" class="flex items-center">
+                    <a href="{% url 'petlisting__create_view' %}" class="flex items-center">
                         <i class="fas fa-plus-circle mr-2"></i>
                         <span>Create Pet Listing</span>
                     </a>
                 </li>
+
+                <!-- Change Password -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="{% url 'account_change_password' %}" class="flex items-center">
-                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        <i class="fas fa-key mr-2"></i>
                         <span>Change Password</span>
                     </a>
                 </li>
+
+                <!-- Logout -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="{% url 'account_logout' %}" class="flex items-center">
                         <i class="fas fa-sign-out-alt mr-2"></i>
@@ -38,15 +48,18 @@
                     </a>
                 </li>
             {% else %}
+                <!-- Home -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="#" class="flex items-center">
                         <i class="fas fa-home mr-2"></i>
                         <span>Home</span>
                     </a>
                 </li>
+
+                <!-- Login -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="{% url 'account_login' %}" class="flex items-center">
-                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        <i class="fas fa-sign-in-alt mr-2"></i>
                         <span>Login</span>
                     </a>
                 </li>
