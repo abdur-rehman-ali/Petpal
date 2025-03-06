@@ -8,23 +8,24 @@ from .forms import PetForm
 from .decorators import seller_required
 
 
-# Create your views here.
 def list_view(request):
-    # Qeury pets_list lists
-    pets_list = Pet.objects.all().order_by("-created_at")
-    # Apply filters
-    pet_filters = PetFilter(request.GET, queryset=pets_list)
+    # Filter the pets
+    pet_filters = filter_pets(request)
     pets_list = pet_filters.qs
-    # Get the total number of pets
+
+    # Count the pets
     total_pets = pets_list.count()
+
     # Apply pagination
-    paginator = Paginator(pets_list, 12)
     page_number = request.GET.get("page")
-    page_object = paginator.get_page(page_number)
+    page_object = paginate_queryset(pets_list, page_number)
+
+    # Prepare context
+    context = prepare_list_view_context(page_object, pet_filters, total_pets)
+
     # Render template
     template_name = "petlisting/listing.html"
-    context = {"pets": page_object, "filters": pet_filters, "total_pets": total_pets}
-    return render(request, template_name, context=context)
+    return render(request, template_name, context)
 
 
 def detail_view(request, pet_id):
@@ -79,3 +80,24 @@ def delete_view(request, pet_id):
     template_name = "petlisting/pet_confirm_delete.html"
     context = {"pet": pet}
     return render(request, template_name, context)
+
+
+# Private Methods
+def filter_pets(request):
+    pets_list = Pet.objects.select_related("seller").all().order_by("-created_at")
+    pet_filters = PetFilter(request.GET, queryset=pets_list)
+    return pet_filters
+
+
+def paginate_queryset(queryset, page_number, page_size=12):
+    paginator = Paginator(queryset, page_size)
+    page_object = paginator.get_page(page_number)
+    return page_object
+
+
+def prepare_list_view_context(page_object, pet_filters, total_pets):
+    return {
+        "pets": page_object,
+        "filters": pet_filters,
+        "total_pets": total_pets,
+    }
