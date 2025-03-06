@@ -56,11 +56,14 @@ INSTALLED_APPS = [
     "widget_tweaks",
     # Django filters
     "django_filters",
+    # Debug toolbar
+    "debug_toolbar",
     # Local Apps,
     "petlisting",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
