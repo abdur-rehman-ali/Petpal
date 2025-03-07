@@ -172,6 +172,9 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = config("EMAIL_PORT", cast=int)
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
 
+# Django extensions shell plus
+SHELL_PLUS = "ipython"
+SHELL_PLUS_PRINT_SQL = True 
 
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
