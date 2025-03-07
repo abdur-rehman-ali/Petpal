@@ -42,12 +42,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Django extenstions
     "django_extensions",
+    # Tailwind
     "tailwind",
     "theme",
     "django_browser_reload",
-    "pages",
-    "dashboard",
     # Django allauth
     "allauth",
     "allauth.account",
@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
     # Local Apps,
     "petlisting",
+    "pages",
+    "dashboard",
 ]
 
 MIDDLEWARE = [
@@ -170,6 +172,9 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = config("EMAIL_PORT", cast=int)
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
 
+# Django extensions shell plus
+SHELL_PLUS = "ipython"
+SHELL_PLUS_PRINT_SQL = True
 
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
