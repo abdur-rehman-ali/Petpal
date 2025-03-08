@@ -1,13 +1,8 @@
 {% extends "account/base_entrance.html" %}
 
 {% block content %}
-<div class="container mx-auto py-8">
-  <h1 class="text-2xl font-bold mb-4">User Profile</h1>
-  <p><strong>Username:</strong> {{ user.username }}</p>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  {% if user.first_name and user.last_name %}
-    <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-  {% endif %}
+<div class="container mx-auto py-4">
+  {% include 'dashboard/partials/_profile_form.html' with form=form%}
 </div>
 {% endblock %}
 
