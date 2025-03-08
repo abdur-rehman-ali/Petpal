@@ -1,0 +1,78 @@
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto my-8 p-6 bg-white rounded-lg shadow-md border border-gray-100">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Update Profile</h1>
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Bio -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.bio.id_for_label }}" class="text-sm font-medium text-gray-700">Bio</label>
+            {{ form.bio|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.date_of_birth.id_for_label }}" class="text-sm font-medium text-gray-700">Date of Birth</label>
+            {{ form.date_of_birth|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Primary Contact Number -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.primary_contact_number.id_for_label }}" class="text-sm font-medium text-gray-700">Primary Contact Number</label>
+            {{ form.primary_contact_number|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Secondary Contact Number -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.secondary_contact_number.id_for_label }}" class="text-sm font-medium text-gray-700">Secondary Contact Number</label>
+            {{ form.secondary_contact_number|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Address -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.address.id_for_label }}" class="text-sm font-medium text-gray-700">Address</label>
+            {{ form.address|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- City -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.city.id_for_label }}" class="text-sm font-medium text-gray-700">City</label>
+            {{ form.city|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Country -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.country.id_for_label }}" class="text-sm font-medium text-gray-700">Country</label>
+            {{ form.country|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Website URL -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.websiteURL.id_for_label }}" class="text-sm font-medium text-gray-700">Website URL</label>
+            {{ form.websiteURL|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Gender -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.gender.id_for_label }}" class="text-sm font-medium text-gray-700">Gender</label>
+            {{ form.gender|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Occupation -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.occupation.id_for_label }}" class="text-sm font-medium text-gray-700">Occupation</label>
+            {{ form.occupation|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+            <button type="submit" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white text-sm font-semibold rounded-md hover:from-indigo-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-save mr-2"></i> 
+                Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
