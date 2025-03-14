@@ -15,6 +15,7 @@ class PetForm(forms.ModelForm):
             "description",
             "location",
             "status",
+            "image",
         ]
         widgets = {
             "description": forms.Textarea(attrs={"rows": 4}),
