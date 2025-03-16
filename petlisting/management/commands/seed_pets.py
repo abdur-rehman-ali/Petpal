@@ -97,7 +97,9 @@ class Command(BaseCommand):
                     }
                 )
             else:
-                self.stdout.write(self.style.ERROR(f"Failed to download image: {image_url}"))
+                self.stdout.write(
+                    self.style.ERROR(f"Failed to download image: {image_url}")
+                )
 
         for pet_data in pets_list:
             self.stdout.write(self.style.SUCCESS(f"Seeding {pet_data.get('name')}"))
