@@ -34,7 +34,7 @@ def detail_view(request, pet_id):
 @login_required
 def create_view(request):
     if request.method == "POST":
-        form = PetForm(request.POST)
+        form = PetForm(request.POST, request.FILES)
         if form.is_valid():
             pet = form.save(commit=False)
             pet.seller = request.user
