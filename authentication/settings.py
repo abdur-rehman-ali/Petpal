@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "pages",
     "dashboard",
     "shop",
+    "store",
 ]
 
 MIDDLEWARE = [
