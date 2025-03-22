@@ -1,0 +1,13 @@
+{% extends "account/base_entrance.html" %}
+{% block content %} 
+    <h1 class="text-3xl font-bold my-6">Shop Listings</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {% if products %}
+          {% for product in products %}
+              {% include 'shop/partials/_product_card.html' with product=product %}
+          {% endfor %}
+      {% else %}
+          <h1>No product found</h1>
+      {% endif %}
+  </div>
+{% endblock content %}

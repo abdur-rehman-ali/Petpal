@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "petlisting",
     "pages",
     "dashboard",
+    "shop",
 ]
 
 MIDDLEWARE = [
