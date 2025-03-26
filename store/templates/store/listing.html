@@ -1,13 +1,21 @@
 {% extends "account/base_entrance.html" %}
 {% block content %} 
-    <h1 class="text-3xl font-bold my-6">Store Listings</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {% if stores %}
-          {% for store in stores %}
-              {% include 'store/partials/_store_card.html' with store=store %}
-          {% endfor %}
-      {% else %}
-          <h1>No store found</h1>
-      {% endif %}
-  </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Store Listings</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% if stores %}
+                {% for store in stores %}
+                    {% include 'store/partials/_store_card.html' with store=store %}
+                {% endfor %}
+            {% else %}
+                <div class="col-span-full text-center py-12">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h2 class="mt-4 text-lg font-medium text-gray-600">No stores found</h2>
+                    <p class="mt-1 text-gray-500">Try adjusting your search or filters</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock content %}
