@@ -25,6 +25,7 @@ urlpatterns = [
     path("dashboard/", include("dashboard.urls")),
     path("petlisting/", include("petlisting.urls")),
     path("shop/", include("shop.urls")),
+    path("stores/", include("store.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
