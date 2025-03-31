@@ -24,11 +24,19 @@
                     </a>
                 </li>
 
-                <!-- Shop Listing -->
+                <!-- Products Listing -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="{% url 'products__list_view' %}" class="flex items-center">
                         <i class="fas fa-store mr-2"></i>
                         <span>Products</span>
+                    </a>
+                </li>
+
+                <!-- Store Listing -->
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'stores__list_view' %}" class="flex items-center">
+                        <i class="fas fa-store mr-2"></i>
+                        <span>Stores</span>
                     </a>
                 </li>
 
@@ -37,14 +45,6 @@
                     <a href="{% url 'petlisting__create_view' %}" class="flex items-center">
                         <i class="fas fa-plus-circle mr-2"></i>
                         <span>Create Pet Listing</span>
-                    </a>
-                </li>
-
-                <!-- Change Password -->
-                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
-                    <a href="{% url 'account_change_password' %}" class="flex items-center">
-                        <i class="fas fa-key mr-2"></i>
-                        <span>Change Password</span>
                     </a>
                 </li>
 
