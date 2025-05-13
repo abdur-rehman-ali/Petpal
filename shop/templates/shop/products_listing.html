@@ -1,6 +1,10 @@
 {% extends "account/base_entrance.html" %}
 {% block content %} 
     <h1 class="text-3xl font-bold my-6">Shop Listings</h1>
+    {% include 'shop/partials/_filters.html' with filters=filters %}
+    <div class="mb-6 text-gray-700">
+        <span class="font-semibold">Total Listings:</span> {{ total_products }}
+      </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {% if products %}
           {% for product in products %}
