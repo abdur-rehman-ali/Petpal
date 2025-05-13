@@ -10,4 +10,5 @@
           <h1>No product found</h1>
       {% endif %}
   </div>
+  {% include 'shop/partials/_paginator_controls.html' with products=products %}
 {% endblock content %}

@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 "https://images.unsplash.com/photo-1551298370-9d3d53740c72",  # Grooming kit
                 "https://images.unsplash.com/photo-1551298370-9d3d53740c72",  # Pet bowl
                 "https://images.unsplash.com/photo-1551298370-9d3d53740c72",  # Health supplies
-            ]
+            ],
         }
 
         pet_product_types = [
@@ -77,16 +77,10 @@ class Command(BaseCommand):
             "Health",
             "Crate",
             "Litter",
-            "Treat"
+            "Treat",
         ]
 
-        pet_categories = [
-            "Dog",
-            "Cat",
-            "Bird",
-            "Fish",
-            "Small Animal"
-        ]
+        pet_categories = ["Dog", "Cat", "Bird", "Fish", "Small Animal"]
 
         temp_dir = "temp_product_images"
         os.makedirs(temp_dir, exist_ok=True)
@@ -95,7 +89,7 @@ class Command(BaseCommand):
         for _ in range(4):  # Creating 30 pet products
             product_type = random.choice(pet_product_types)
             pet_category = random.choice(pet_categories)
-            
+
             # Generate appropriate product names and descriptions
             if product_type == "Food":
                 name = f"{pet_category} {product_type} - {fake.word().title()} Formula"
@@ -106,9 +100,9 @@ class Command(BaseCommand):
             else:
                 name = f"{pet_category} {product_type} - {fake.word().title()} {product_type}"
                 description = f"High-quality {pet_category.lower()} {product_type.lower()}. {fake.paragraph(nb_sentences=2)}"
-            
+
             slug = slugify(name)
-            
+
             # Get an appropriate image for the product type
             image_type = product_type if product_type in product_images else "Other"
             image_url = random.choice(product_images[image_type])
@@ -117,7 +111,7 @@ class Command(BaseCommand):
                 # Download and upload the image
                 response = requests.get(image_url)
                 response.raise_for_status()  # Raise exception for bad status codes
-                
+
                 image_name = os.path.join(temp_dir, f"{slug}_{fake.uuid4()}.jpg")
                 with open(image_name, "wb") as f:
                     f.write(response.content)
@@ -133,7 +127,9 @@ class Command(BaseCommand):
                         "description": description,
                         "price": round(random.uniform(5.00, 100.00), 2),
                         "stock": random.randint(5, 50),
-                        "is_available": random.choices([True, False], weights=[90, 10])[0],
+                        "is_available": random.choices([True, False], weights=[90, 10])[
+                            0
+                        ],
                         "rating": round(random.uniform(3.0, 5.0), 2),
                         "seller": user,
                         "image": upload_result["public_id"],
@@ -147,11 +143,15 @@ class Command(BaseCommand):
 
         for product_data in products_list:
             try:
-                self.stdout.write(self.style.SUCCESS(f"Seeding {product_data.get('name')}"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Seeding {product_data.get('name')}")
+                )
                 Product.objects.create(**product_data)
             except Exception as e:
                 self.stdout.write(
-                    self.style.ERROR(f"Failed to create product {product_data.get('name')}: {str(e)}")
+                    self.style.ERROR(
+                        f"Failed to create product {product_data.get('name')}: {str(e)}"
+                    )
                 )
-            
+
         self.stdout.write(self.style.SUCCESS("Pet products data seeded successfully!"))
