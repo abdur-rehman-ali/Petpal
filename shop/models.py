@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from cloudinary.models import CloudinaryField
 
 User = get_user_model()
 
@@ -15,6 +16,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
+    image = CloudinaryField("image", blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -1,7 +1,12 @@
 <a href="{% url 'petlisting__detail_view' product.id %}" class="max-w-full rounded-xl overflow-hidden shadow-lg cursor-pointer bg-white hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
   <!-- Product Image -->
   <div class="relative">
-    <img class="w-full h-52 object-cover rounded-t-xl" src="https://placehold.co/600x400" alt="{{ product.name }}">
+    {% if product.image %}
+      <img class="w-full h-52 object-cover rounded-t-xl" src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% else %}
+      <img class="w-full h-52 object-cover rounded-t-xl" src="https://placehold.co/600x400" alt="{{ product.name }}">
+    {% endif %}
+
     <!-- Availability Badge -->
     <span class="absolute top-3 right-3 {% if product.is_available %}bg-green-500{% else %}bg-red-500{% endif %} text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
       {% if product.is_available %}In Stock{% else %}Out of Stock{% endif %}
