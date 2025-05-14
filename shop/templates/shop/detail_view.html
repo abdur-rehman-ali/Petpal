@@ -1,0 +1,103 @@
+{% extends "account/base_entrance.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto my-8 p-6 bg-white rounded-lg shadow-xl border border-gray-100">
+    <!-- Product Image -->
+    <div class="relative">
+        {% if product.image %}
+            <img class="w-full h-96 object-cover rounded-lg" src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <img class="w-full h-96 object-cover rounded-lg" src="https://placehold.co/800x400" alt="{{ product.name }}">
+        {% endif %}
+        <!-- Availability Badge -->
+        <span class="absolute top-4 right-4 {% if product.is_available %}bg-green-500{% else %}bg-red-500{% endif %} text-white text-sm font-semibold px-4 py-2 rounded-full shadow-md">
+            {% if product.is_available %}Available{% else %}Out of Stock{% endif %}
+        </span>
+    </div>
+
+    <!-- Product Details -->
+    <div class="mt-8">
+        <!-- Product Name -->
+        <h1 class="text-4xl font-bold text-gray-800">{{ product.name }}</h1>
+
+        <!-- Basic Info Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+            <!-- Price -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Price</p>
+                <p class="text-lg font-semibold text-gray-800">Rs. {{ product.price }}</p>
+            </div>
+
+            <!-- Stock -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Stock</p>
+                <p class="text-lg font-semibold text-gray-800">{{ product.stock }} available</p>
+            </div>
+
+            <!-- Rating -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Rating</p>
+                <div class="flex items-center">
+                    <span class="text-lg font-semibold text-gray-800 mr-2">{{ product.rating }}</span>
+                    <div class="flex text-yellow-400">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.rating %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Created At -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Listed On</p>
+                <p class="text-lg font-semibold text-gray-800">{{ product.created_at|date:"M d, Y" }}</p>
+            </div>
+
+            <!-- Updated At -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Last Updated</p>
+                <p class="text-lg font-semibold text-gray-800">{{ product.updated_at|date:"M d, Y" }}</p>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold text-gray-800">About This Product</h2>
+            <p class="mt-4 text-gray-600 leading-relaxed">{{ product.description }}</p>
+        </div>
+
+        <!-- Seller Info -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold text-gray-800">Seller Information</h2>
+            <div class="mt-4 bg-gray-50 p-6 rounded-lg">
+                <p class="text-lg font-semibold text-gray-800">{{ product.seller.username }}</p>
+                <p class="text-gray-600">{{ product.seller.email }}</p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        {% if product.seller == request.user %}
+          <div class="mt-8 flex space-x-4">
+              <a href="{% url 'product__detail_view' product.id %}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold rounded-md hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                  <i class="fas fa-edit mr-2"></i> Edit
+              </a>
+              <a href="{% url 'product__detail_view' product.id %}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm font-semibold rounded-md hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                  <i class="fas fa-trash mr-2"></i> Delete
+              </a>
+          </div>
+        {% endif %}
+
+        <!-- Add to Cart Button (for buyers) -->
+        {% if product.seller != request.user and product.is_available %}
+          <div class="mt-8">
+              <button class="w-full inline-flex justify-center items-center px-6 py-4 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white text-lg font-semibold rounded-md hover:from-indigo-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105">
+                  <i class="fas fa-cart-plus mr-3"></i> Add to Cart
+              </button>
+          </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

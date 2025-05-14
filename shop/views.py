@@ -30,6 +30,13 @@ def list_view(request):
     return render(request, "shop/products_listing.html", context)
 
 
+def detail_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    template_name = "shop/detail_view.html"
+    context = {"product": product}
+    return render(request, template_name, context=context)
+
+
 @login_required
 def create_view(request):
     if request.method == "POST":
