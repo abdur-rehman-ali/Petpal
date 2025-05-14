@@ -5,6 +5,7 @@ from .filters import ProductFilter
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils.text import slugify
 
 
 def list_view(request):
@@ -46,7 +47,7 @@ def create_view(request):
             product.seller = request.user
             product.save()
             messages.success(request, f"{product.name} has been created successfully!")
-            return redirect("products__list_view")
+            return redirect("product__detail_view", product_id=product.id)
     else:
         form = ProductForm()
 

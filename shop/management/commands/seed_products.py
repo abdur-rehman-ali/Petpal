@@ -123,7 +123,6 @@ class Command(BaseCommand):
                 products_list.append(
                     {
                         "name": name,
-                        "slug": slug,
                         "description": description,
                         "price": round(random.uniform(5.00, 100.00), 2),
                         "stock": random.randint(5, 50),
