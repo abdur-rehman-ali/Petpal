@@ -53,3 +53,20 @@ def create_view(request):
     template_name = "shop/create_edit_view_template.html"
     context = {"form": form, "is_edit": False}
     return render(request, template_name, context=context)
+
+
+@login_required
+def edit_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"{product.name} has been updated successfully!")
+            return redirect("product__detail_view", product_id=product.id)
+    else:
+        form = ProductForm(instance=product)
+
+    template_name = "shop/create_edit_view_template.html"
+    context = {"form": form, "product": product, "is_edit": True}
+    return render(request, template_name, context)
