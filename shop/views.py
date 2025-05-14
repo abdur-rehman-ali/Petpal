@@ -5,7 +5,6 @@ from .filters import ProductFilter
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.utils.text import slugify
 
 
 def list_view(request):
@@ -70,4 +69,16 @@ def edit_view(request, product_id):
 
     template_name = "shop/create_edit_view_template.html"
     context = {"form": form, "product": product, "is_edit": True}
+    return render(request, template_name, context)
+
+
+@login_required
+def delete_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == "POST":
+        product.delete()
+        messages.success(request, f"{product.name} has been deleted successfully.")
+        return redirect("products__list_view")
+    template_name = "shop/product_confirm_delete.html"
+    context = {"product": product}
     return render(request, template_name, context)
