@@ -1,0 +1,19 @@
+{% if products.has_other_pages %}
+    <div class="flex justify-center my-8">
+        <nav class="inline-flex rounded-md shadow-sm">
+            {% if products.has_previous %}
+                <a href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="px-4 py-2 border rounded-l-md bg-white text-gray-700 hover:bg-gray-50">First</a>
+                <a href="?page={{ products.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="px-4 py-2 border bg-white text-gray-700 hover:bg-gray-50">Previous</a>
+            {% endif %}
+
+            <span class="px-4 py-2 border bg-white text-gray-700">
+                Page {{ products.number }} of {{ products.paginator.num_pages }}
+            </span>
+
+            {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="px-4 py-2 border bg-white text-gray-700 hover:bg-gray-50">Next</a>
+                <a href="?page={{ products.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="px-4 py-2 border rounded-r-md bg-white text-gray-700 hover:bg-gray-50">Last</a>
+            {% endif %}
+        </nav>
+    </div>
+{% endif %}
