@@ -38,6 +38,25 @@
             <label for="{{ form.is_available.id_for_label }}" class="text-sm font-medium text-gray-700">Available for purchase</label>
         </div>
 
+         <!-- Pet Category (Dropdown) -->
+         <div class="flex flex-col space-y-2">
+            <label for="{{ form.pet_category.id_for_label }}" class="text-sm font-medium text-gray-700">Pet Category</label>
+            {{ form.pet_category|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+            {% if form.pet_category.help_text %}
+                <p class="text-xs text-gray-500">{{ form.pet_category.help_text }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Product Type (Dropdown) -->
+        <div class="flex flex-col space-y-2">
+            <label for="{{ form.product_type.id_for_label }}" class="text-sm font-medium text-gray-700">Product Category</label>
+            {{ form.product_type|add_class:"w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+            {% if form.product_type.help_text %}
+                <p class="text-xs text-gray-500">{{ form.product_type.help_text }}</p>
+            {% endif %}
+        </div>
+
+
         <!-- Image -->
         <div class="flex flex-col space-y-2">
             <label for="{{ form.image.id_for_label }}" class="text-sm font-medium text-gray-700">Product Image</label>
