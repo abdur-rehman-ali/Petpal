@@ -8,7 +8,11 @@
             {% for item in cart.items.all %}
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-gray-50 rounded-lg">
                     <div class="flex items-center space-x-4 mb-4 sm:mb-0">
-                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-20 h-20 object-cover rounded-lg">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-20 h-20 object-cover rounded-lg">
+                        {% else %}
+                            <img src="https://placehold.co/200?text=No+Image" alt="{{ item.product.name }}" class="w-20 h-20 object-cover rounded-lg">
+                        {% endif %}
                         <div>
                             <h3 class="font-semibold text-lg">{{ item.product.name }}</h3>
                             <p class="text-sm text-gray-600">{{ item.product.get_pet_category_display }} - {{ item.product.get_product_type_display }}</p>
@@ -24,9 +28,9 @@
                                 <button type="submit" class="ml-2 text-blue-500 hover:text-blue-700">Update</button>
                             </form>
                         </div>
-                        <p class="font-semibold">Rs. {{ item.total_price }}</p>
+                        <p class="font-semibold px-2">Rs. {{ item.total_price }}</p>
                         <a href="{% url 'remove_from_cart' item.id %}" class="text-red-500 hover:text-red-700">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-trash text-red-500"></i>
                         </a>
                     </div>
                 </div>
