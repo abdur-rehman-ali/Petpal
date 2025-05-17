@@ -14,6 +14,18 @@ class ProductFilter(django_filters.FilterSet):
         field_name="is_available", label="Available"
     )
 
+    pet_category = django_filters.ChoiceFilter(
+        choices=Product.PET_CATEGORY_CHOICES,
+        label="Pet Category",
+        empty_label="All Pet Categories",
+    )
+
+    product_type = django_filters.ChoiceFilter(
+        choices=Product.PRODUCT_TYPE_CHOICES,
+        label="Product Type",
+        empty_label="All Product Types",
+    )
+
     class Meta:
         model = Product
         fields = []
