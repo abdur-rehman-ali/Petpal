@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator
-from .models import Product
+from .models import Product, Cart, CartItem, Order, OrderItem
 from .filters import ProductFilter
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
@@ -82,3 +82,123 @@ def delete_view(request, product_id):
     template_name = "shop/product_confirm_delete.html"
     context = {"product": product}
     return render(request, template_name, context)
+
+
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+
+    cart_item, created = CartItem.objects.get_or_create(
+        cart=cart, product=product, defaults={"quantity": 1}
+    )
+
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    messages.success(request, f"{product.name} added to your cart.")
+    return redirect("product__detail_view", product_id=product.id)
+
+
+@login_required
+def remove_from_cart(request, cart_item_id):
+    cart_item = get_object_or_404(CartItem, id=cart_item_id, cart__user=request.user)
+    cart_item.delete()
+    messages.success(request, "Item removed from your cart.")
+    return redirect("view_cart")
+
+
+@login_required
+def update_cart_item(request, cart_item_id):
+    cart_item = get_object_or_404(CartItem, id=cart_item_id, cart__user=request.user)
+    quantity = int(request.POST.get("quantity", 1))
+
+    if quantity > 0:
+        cart_item.quantity = quantity
+        cart_item.save()
+        messages.success(request, "Cart updated.")
+    else:
+        cart_item.delete()
+        messages.success(request, "Item removed from your cart.")
+
+    return redirect("view_cart")
+
+
+@login_required
+def view_cart(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    return render(request, "shop/cart.html", {"cart": cart})
+
+
+@login_required
+def checkout(request):
+    cart = get_object_or_404(Cart, user=request.user)
+
+    if not cart.items.exists():
+        messages.warning(request, "Your cart is empty.")
+        return redirect("view_cart")
+
+    return render(request, "shop/checkout.html", {"cart": cart})
+
+
+@login_required
+def place_order(request):
+    cart = get_object_or_404(Cart, user=request.user)
+
+    if not cart.items.exists():
+        messages.warning(request, "Your cart is empty.")
+        return redirect("view_cart")
+
+    # Create order
+    order = Order.objects.create(user=request.user, total_price=cart.total_price)
+
+    # Create order items
+    for cart_item in cart.items.all():
+        OrderItem.objects.create(
+            order=order,
+            product=cart_item.product,
+            quantity=cart_item.quantity,
+            price=cart_item.product.price,
+        )
+
+        # Update product stock
+        cart_item.product.stock -= cart_item.quantity
+        cart_item.product.save()
+
+    # Clear the cart
+    cart.items.all().delete()
+
+    messages.success(request, "Your order has been placed successfully!")
+    return redirect("order_detail", order_id=order.id)
+
+
+@login_required
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request, "shop/order_detail.html", {"order": order})
+
+
+@login_required
+def my_orders(request):
+    orders = (
+        Order.objects.filter(items__product__seller=request.user)
+        .distinct()
+        .order_by("-created_at")
+    )
+
+    return render(request, "shop/my_orders.html", {"orders": orders})
+
+
+@login_required
+def update_order_status(request, order_id):
+    order = get_object_or_404(Order, id=order_id, items__product__seller=request.user)
+
+    if request.method == "POST":
+        new_status = request.POST.get("status")
+        if new_status in dict(Order.STATUS_CHOICES).keys():
+            order.status = new_status
+            order.save()
+            messages.success(request, "Order status updated successfully!")
+            return redirect("my_orders")
+    return redirect("my_orders")

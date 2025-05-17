@@ -32,6 +32,21 @@
                     </a>
                 </li>
 
+                <!-- Cart -->
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'view_cart' %}" class="flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        <span>My Cart</span>
+                    </a>
+                </li>
+
+                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="{% url 'my_orders' %}" class="flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        <span>My Received Orders</span>
+                    </a>
+                </li>
+
                 <!-- Create Pet Listing -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="{% url 'petlisting__create_view' %}" class="flex items-center">
@@ -48,12 +63,12 @@
                 </li>
 
                 <!-- Change Password -->
-                <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
+                {% comment %} <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
                     <a href="{% url 'account_change_password' %}" class="flex items-center">
                         <i class="fas fa-key mr-2"></i>
                         <span>Change Password</span>
                     </a>
-                </li>
+                </li> {% endcomment %}
 
                 <!-- Logout -->
                 <li class="px-4 py-2 text-gray-700 hover:bg-gray-100">
