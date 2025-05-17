@@ -20,7 +20,7 @@
 
     <!-- Product Description (Truncated) -->
     <p class="text-gray-600 text-sm">
-      {{ product.description|truncatechars:100 }}
+      {{ product.description|truncatechars:30 }}
     </p>
 
     <!-- Price -->
@@ -28,14 +28,27 @@
       <span class="font-semibold">Price:</span> Rs.{{ product.price }}
     </p>
 
-    <!-- Stock -->
-    <p class="text-gray-700 text-sm">
-      <span class="font-semibold">Stock:</span> {{ product.stock }} available
-    </p>
+    <!-- Product Info Grid -->
+    <div class="grid grid-cols-2 gap-2 mt-2">
+      <!-- Stock -->
+      <p class="text-gray-700 text-sm">
+        <span class="font-semibold">Stock:</span> {{ product.stock }}
+      </p>
 
-    <!-- Rating -->
-    <p class="text-gray-700 text-sm">
-      <span class="font-semibold">Rating:</span> {{ product.rating }}/5.0
-    </p>
+      <!-- Rating -->
+      <p class="text-gray-700 text-sm">
+        <span class="font-semibold">Rating:</span> {{ product.rating }}/5.0
+      </p>
+
+      <!-- Pet Category -->
+      <p class="text-gray-700 text-sm">
+        <span class="font-semibold">For:</span> {{ product.get_pet_category_display }}
+      </p>
+
+      <!-- Product Type -->
+      <p class="text-gray-700 text-sm">
+        <span class="font-semibold">Type:</span> {{ product.get_product_type_display }}
+      </p>
+    </div>
   </div>
 </a>
