@@ -175,5 +175,30 @@ def place_order(request):
 
 @login_required
 def order_detail(request, order_id):
-    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order = get_object_or_404(Order, id=order_id)
     return render(request, "shop/order_detail.html", {"order": order})
+
+
+@login_required
+def my_orders(request):
+    orders = (
+        Order.objects.filter(items__product__seller=request.user)
+        .distinct()
+        .order_by("-created_at")
+    )
+
+    return render(request, "shop/my_orders.html", {"orders": orders})
+
+
+@login_required
+def update_order_status(request, order_id):
+    order = get_object_or_404(Order, id=order_id, items__product__seller=request.user)
+
+    if request.method == "POST":
+        new_status = request.POST.get("status")
+        if new_status in dict(Order.STATUS_CHOICES).keys():
+            order.status = new_status
+            order.save()
+            messages.success(request, "Order status updated successfully!")
+            return redirect("my_orders")
+    return redirect("my_orders")

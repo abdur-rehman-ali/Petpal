@@ -12,6 +12,8 @@ from .views import (
     checkout,
     place_order,
     order_detail,
+    my_orders,
+    update_order_status,
 )
 
 urlpatterns = [
@@ -27,4 +29,10 @@ urlpatterns = [
     path("checkout/", checkout, name="checkout"),
     path("checkout/place-order/", place_order, name="place_order"),
     path("orders/<int:order_id>/", order_detail, name="order_detail"),
+    path("my-orders/", my_orders, name="my_orders"),
+    path(
+        "orders/<int:order_id>/update-status/",
+        update_order_status,
+        name="update_order_status",
+    ),
 ]
