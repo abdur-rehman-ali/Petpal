@@ -15,6 +15,7 @@ class PetForm(forms.ModelForm):
             "description",
             "location",
             "status",
+            "contact_number",
             "image",
         ]
         widgets = {
