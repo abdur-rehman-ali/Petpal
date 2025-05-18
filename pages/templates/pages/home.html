@@ -1,6 +1,10 @@
 {% extends "account/base_entrance.html" %}
 {% block content %}
-<section class="flex items-center justify-center h-screen">
-  <h1 class="text-5xl">Django is the best</h1>
+<section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1555685812-4b943f1cb0eb');">
+  <div class="bg-black bg-opacity-60 w-full h-full absolute top-0 left-0"></div>
+  <div class="relative z-10 text-center text-white px-4">
+    <h1 class="text-5xl md:text-6xl font-bold mb-4">Welcome to PetPal</h1>
+    <p class="text-xl md:text-2xl mb-6">Find your perfect furry friend or give a pet a loving home</p>
+  </div>
 </section>
 {% endblock %}

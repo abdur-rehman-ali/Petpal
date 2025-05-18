@@ -33,6 +33,11 @@ class Pet(models.Model):
         default="available",
     )
     image = CloudinaryField("image", blank=True, null=True)
+    contact_number = models.CharField(
+        max_length=15,
+        blank=True,
+        null=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
